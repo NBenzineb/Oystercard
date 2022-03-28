@@ -15,4 +15,17 @@ describe Oystercard do
     subject.top_up(50)
     expect(subject.deduct(2)).to eq 48
   end
+
+  it "should touch in" do 
+    expect(subject.touch_in).to eq true
+  end
+
+  it "should touch out" do
+    expect(subject.touch_out).to eq false
+  end
+
+  it "the oyster card should be in use" do
+    expect(subject.in_journey?).to eq true
+  end
+
 end
