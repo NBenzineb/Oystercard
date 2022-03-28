@@ -3,7 +3,7 @@ MIN_BALANCE = 1
 
 class Oystercard
 attr_reader :balance
-attr_accessor :in_journey
+attr_accessor :in_journey, :balance
 
   def initialize
   @balance = 1
@@ -15,10 +15,10 @@ attr_accessor :in_journey
     @balance = money + balance
     else raise "Limit is £#{LIMIT}"
   end
-
   end
+
   def deduct(money)
-    @balance - money
+    @balance -= money
   end
 
   def touch_in
@@ -27,12 +27,12 @@ attr_accessor :in_journey
   end
 
   def touch_out
-    @balance -= MIN_BALANCE
+    deduct(MIN_BALANCE)
     @injourney = false
-    
   end
 
   def in_journey?
     @injourney = true
   end
 end
+
