@@ -6,7 +6,7 @@ attr_reader :balance
 attr_accessor :in_journey
 
   def initialize
-  @balance = 0
+  @balance = 1
   @in_journey = true
   end
 
@@ -27,7 +27,9 @@ attr_accessor :in_journey
   end
 
   def touch_out
+    @balance -= MIN_BALANCE
     @injourney = false
+    
   end
 
   def in_journey?
