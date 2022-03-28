@@ -11,4 +11,8 @@ describe Oystercard do
   it "warn if top up is over £90" do
     expect{subject.top_up(100)}.to raise_error 'Limit is £90'
   end
+  it "deducts the fare from the balance" do
+    subject.top_up(50)
+    expect(subject.deduct(2)).to eq 48
+  end
 end

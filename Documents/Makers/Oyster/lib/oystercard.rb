@@ -11,4 +11,7 @@ LIMIT = 90
     else raise "Limit is £#{LIMIT}"
    end
   end
+  def deduct(money)
+    @balance - money
+  end
 end
