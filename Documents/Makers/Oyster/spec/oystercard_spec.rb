@@ -2,6 +2,8 @@ require_relative '../lib/oystercard.rb'
 
 describe Oystercard do
     let(:station){double :station}
+    let(:station1){double :station}
+    let(:station2){double :station}
  
   it "shows user's balance"  do
     expect(subject.balance).to eq subject.balance
@@ -24,7 +26,7 @@ describe Oystercard do
   it "should touch out" do
     subject.touch_in(station)
     
-  expect( subject.touch_out).to eq false
+  expect( subject.touch_out(station)).to eq false
   end
   it "the oyster card should be in use" do
     subject.touch_in(station)
@@ -36,7 +38,7 @@ describe Oystercard do
   end
   it "should deduct money from balance when touching out" do
     subject.touch_in(station)
-    expect {subject.touch_out}.to change{subject.balance}.by(-MIN_FARE)
+    expect {subject.touch_out(station)}.to change{subject.balance}.by(-MIN_FARE)
   end
   it "should save entry station" do
     subject.touch_in(station)
@@ -44,7 +46,19 @@ describe Oystercard do
   end
   it "should have no entry station saved on touch out" do
     subject.touch_in(station)
-    subject.touch_out
+    subject.touch_out(station)
     expect(subject.entry_station).to be_nil
+  end
+  it "should save exit station" do
+    subject.touch_out(station)
+    expect(subject.exit_station).to eq station
+  end
+  it "checks a list of trips exists" do
+    expect(subject.trips).to include(:entry_station => nil, :exit_station => nil)
+  end
+  it "checks that touch in & touch out adds stations to trips" do
+    subject.touch_in(station1)
+    subject.touch_out(station2)
+    expect(subject.trips).to include(:entry_station => station1, :exit_station => station2)
   end
 end
