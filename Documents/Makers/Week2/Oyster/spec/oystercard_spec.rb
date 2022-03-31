@@ -25,8 +25,7 @@ describe Oystercard do
   end
   it "should touch out" do
     subject.touch_in(station)
-    
-  expect( subject.touch_out(station)).to eq false
+    expect( subject.touch_out(station)).to eq false
   end
   it "the oyster card should be in use" do
     subject.touch_in(station)
@@ -56,9 +55,5 @@ describe Oystercard do
   it "checks a list of trips exists" do
     expect(subject.trips).to include(:entry_station => nil, :exit_station => nil)
   end
-  it "checks that touch in & touch out adds stations to trips" do
-    subject.touch_in(station1)
-    subject.touch_out(station2)
-    expect(subject.trips).to include(:entry_station => station1, :exit_station => station2)
-  end
+  
 end
